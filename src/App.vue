@@ -23,7 +23,7 @@ useAnimation()
     @toggle-theme="toggleTheme"
   />
 
-  <main id="main-content">
+  <main id="main-content" class="sm-f-small">
     <HeroSection />
     <AboutSection />
     <SkillsSection />

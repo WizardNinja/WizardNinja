@@ -7,6 +7,5 @@ import './assets/styles/css-framework.css'
 // Import custom styles
 import './assets/styles/variables.css'
 import './assets/styles/animations.css'
-import './assets/styles/components.css'
 
 createApp(App).mount('#app')

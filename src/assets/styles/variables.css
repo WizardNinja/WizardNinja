@@ -4,7 +4,7 @@
   --color-bg-alt: #f0f0f0;
   --color-surface: #ffffff;
   --color-text: #272822;
-  --color-text-muted: #6e7066;
+  --color-text-muted: #5c5e56;
   --color-accent: #7a9f22;
   --color-accent-hover: #5d7a1a;
   --color-secondary: #2aa1b3;
@@ -41,7 +41,7 @@
   --color-bg-alt: #1e1f1c;
   --color-surface: #3e3d32;
   --color-text: #f8f8f2;
-  --color-text-muted: #75715e;
+  --color-text-muted: #918b7d;
   --color-accent: #a6e22e;
   --color-accent-hover: #b8f336;
   --color-secondary: #66d9ef;
@@ -126,20 +126,23 @@ a:hover {
   transform: translateY(-2px);
 }
 
-/* Section styling - framework handles padding via sm-py-30 md-py-40 */
 .section-alt {
   background-color: var(--color-bg-alt);
 }
 
-/* Section title styling - framework handles sizing via sm-f-xlarge md-f-huge */
 .section-title {
   font-weight: 700;
   color: var(--color-text);
 }
 
-/* Section subtitle styling - framework handles sizing via sm-f-medium md-f-large */
 .section-subtitle {
   color: var(--color-text-muted);
+}
+
+.section-title,
+.section-subtitle {
+  display: block;
+  width: 100%;
 }
 
 /* Card styling */
@@ -167,4 +170,11 @@ a:hover {
 code, .code-text {
   font-family: var(--font-mono);
   color: var(--color-highlight);
+}
+
+/* Command-style button prefix */
+.btn-command::before {
+  content: '>';
+  margin-right: 0.5rem;
+  opacity: 0.6;
 }

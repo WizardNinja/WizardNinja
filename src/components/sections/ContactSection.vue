@@ -6,7 +6,7 @@ import { profile } from '@/data/profile.js'
   <section id="contact" class="sm-py-30 md-py-40">
     <div class="row sm-px-10 md-px-15">
       <div class="sm-12">
-        <h2 class="section-title sm-f-large md-f-xlarge sm-mb-10 animate-fade-in">Get In Touch</h2>
+        <h2 class="section-title sm-f-large md-f-xlarge sm-mb-5 animate-fade-in">Get In Touch</h2>
         <p class="section-subtitle sm-f-small sm-mb-20 animate-fade-in">Let's work together on your next project</p>
       </div>
 
@@ -72,3 +72,37 @@ import { profile } from '@/data/profile.js'
     </div>
   </section>
 </template>
+
+<style scoped>
+.section-title,
+.section-subtitle {
+  display: block;
+  width: 100%;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+}
+
+.contact-item::before {
+  content: '>';
+  color: var(--color-accent);
+  opacity: 0.6;
+}
+
+.contact-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--color-secondary);
+  flex-shrink: 0;
+}
+</style>

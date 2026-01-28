@@ -1,26 +1,39 @@
-export const projects = [
+export const mrProjects = [
   {
     id: 1,
     title: 'Content Management System',
-    description: 'A modern, headless CMS built with Vue.js and Node.js. Features real-time collaboration, version control, and a powerful API for content delivery.',
-    tags: ['Vue.js', 'Node.js', 'MongoDB', 'REST API']
+    description: 'A CMS built with Angular and Node.js. Features, version control, and a A/B testing for fast content delivery.',
+    tags: ['Angular', 'Node.js', 'Express', 'MongoDB']
   },
   {
     id: 2,
     title: 'E-commerce Booking Platform',
-    description: 'Full-stack booking platform with integrated payment processing, calendar management, and automated email notifications for service-based businesses.',
-    tags: ['React', 'Express', 'PostgreSQL', 'Stripe']
-  },
-  {
-    id: 3,
-    title: 'AI Recommendation Engine',
-    description: 'Machine learning-powered recommendation system that analyzes user behavior to deliver personalized content suggestions with high accuracy.',
-    tags: ['Python', 'TensorFlow', 'FastAPI', 'Redis']
+    link: 'https://www.madison-reed.com/colorbar/locations',
+    description: 'Appointment booking platform for Hair Color Bar services.',
+    tags: ['Vue', 'Node.js', 'Express']
   },
   {
     id: 4,
     title: 'Interactive Quiz Builder',
-    description: 'Drag-and-drop quiz creation tool with real-time analytics, customizable themes, and embeddable widgets for seamless website integration.',
-    tags: ['Vue.js', 'TypeScript', 'Firebase', 'D3.js']
+    link: 'https://www.madison-reed.com/color-advisor',
+    description: 'Drag-and-drop quiz creation tool for gathering important customer data to power product recommendations and user feedback.',
+    tags: ['Angular', 'Vue', 'Node.js', 'Express', 'MongoDB']
   }
 ]
+
+export const sideProjects = [
+  {
+    id: 1,
+    title: 'Dadly Affirmations',
+    link: 'https://apps.apple.com/us/app/dadly-affirmations/id6755132818',
+    description: 'A mobile app that lets people start their day with laughter, by providing a daily dad joke delivered like a morning affirmation',
+    tags: ['Vue', 'Capacitor']
+  },
+  {
+    id: 2,
+    title: 'WiN CSS',
+    link: 'https://github.com/WizardNinja/win-css',
+    description: 'A mobile-first CSS framework with proportionally-scaling typography and spacing.',
+    tags: ['SASS', 'CSS']
+  }
+];

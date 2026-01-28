@@ -7,7 +7,7 @@ import SkillBadge from '@/components/ui/SkillBadge.vue'
   <section id="skills" class="sm-py-30 md-py-40">
     <div class="row sm-px-10 md-px-15">
       <div class="sm-12">
-        <h2 class="section-title sm-f-large md-f-xlarge sm-mb-10 animate-fade-in">Skills & Expertise</h2>
+        <h2 class="section-title sm-f-large md-f-xlarge sm-mb-5 animate-fade-in">Skills & Expertise</h2>
         <p class="section-subtitle sm-f-small sm-mb-20 animate-fade-in">Technologies I work with</p>
       </div>
 
@@ -31,3 +31,31 @@ import SkillBadge from '@/components/ui/SkillBadge.vue'
     </div>
   </section>
 </template>
+
+<style scoped>
+.section-title,
+.section-subtitle {
+  display: block;
+  width: 100%;
+}
+
+.skills-category-title {
+  font-weight: 600;
+  color: var(--color-secondary);
+  font-family: var(--font-mono);
+}
+
+.skills-category-title::before {
+  content: '// ';
+  opacity: 0.5;
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
