@@ -30,7 +30,7 @@ import ProjectCard from '@/components/ui/ProjectCard.vue'
 
       <div class="sm-12">
         <div class="sm-12">
-          <h3 class="section-title sm-f-medium md-f-large">Side Projects</h3>
+          <h3 class="section-title sm-f-medium md-f-large sm-mt-10">Side Projects</h3>
         </div>
         <div
           v-for="(project, index) in sideProjects"
