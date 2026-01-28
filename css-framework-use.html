@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WiN-CSS Documentation</title>
+  <link rel="stylesheet" href="dist/win.css">
+  <style>
+    :root {
+      --bg: #fafafa;
+      --bg-alt: #fff;
+      --text: #1a1a1a;
+      --text-muted: #555;      /* 7.5:1 on white - WCAG AAA */
+      --text-faint: #717171;   /* 4.6:1 on white - WCAG AA */
+      --border: #d4d4d4;
+      --accent: #0a7569;       /* 4.6:1 on white - WCAG AA */
+      --accent-hover: #065f56;
+      --code-bg: #18181b;
+      --code-text: #e4e4e7;
+      --focus-ring: #0a7569;
+    }
+
+    /* Skip link for keyboard navigation */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--accent);
+      color: white;
+      padding: 8px 16px;
+      z-index: 100;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
+    /* Focus styles for keyboard navigation */
+    *:focus {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: 2px;
+    }
+
+    *:focus:not(:focus-visible) {
+      outline: none;
+    }
+
+    *:focus-visible {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: 2px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .code {
+      background: var(--code-bg);
+      color: var(--code-text);
+      border-radius: 6px;
+      font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+      overflow-x: auto;
+      font-size: 0.9em;
+    }
+
+    .code-inline {
+      background: #f0f0f0;
+      color: var(--text);
+      padding: 0.15em 0.5em;
+      border-radius: 4px;
+      font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+      font-size: 0.85em;
+      border: 1px solid var(--border);
+    }
+
+    .demo-box {
+      background: var(--code-bg);
+      color: var(--code-text);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 60px;
+      font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+    }
+
+    .demo-box-alt {
+      background: #27272a;
+    }
+
+    .demo-box-muted {
+      background: #f5f5f5;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .section {
+      background: var(--bg-alt);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 0.75em 1em;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      background: #fafafa;
+      font-weight: 600;
+      font-size: 0.85em;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+
+    .hero {
+      background: var(--code-bg);
+      color: var(--code-text);
+    }
+
+    .highlight-box {
+      background: #f0fdfa;
+      border: 1px solid #99f6e4;
+      color: var(--text);
+    }
+
+    .card-demo {
+      background: var(--bg-alt);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .card-demo-image {
+      background: var(--code-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #a1a1aa;           /* 5.1:1 on #18181b - WCAG AA */
+      font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+      font-size: 0.85em;
+    }
+
+    /* Hero text colors - explicit values for contrast compliance */
+    .hero-subtitle {
+      color: #b4b4b9;           /* 7.2:1 on #18181b - WCAG AAA */
+    }
+
+    .hero-description {
+      color: #8f8f96;           /* 4.5:1 on #18181b - WCAG AA */
+    }
+
+    .spacing-demo {
+      background: var(--accent);
+      color: white;
+      position: relative;
+    }
+
+    .spacing-inner {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .nav-link {
+      display: inline-block;
+      padding: 0.5em 1em;
+      color: var(--text);
+      border-radius: 6px;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: all 0.15s;
+    }
+
+    .nav-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .accent-text {
+      color: var(--accent);
+    }
+
+    .muted {
+      color: var(--text-muted);
+    }
+
+    .faint {
+      color: var(--text-faint);
+    }
+
+    /* Faint text on dark backgrounds (code blocks) */
+    .code .faint,
+    .code-faint {
+      color: #9ca3af;           /* 5.4:1 on #18181b - WCAG AA */
+    }
+
+    .mono {
+      font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+    }
+
+    .breakpoint-box {
+      background: var(--bg-alt);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .breakpoint-box.active {
+      border-color: var(--accent);
+      background: #f0fdfa;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="row sm-px-10 sm-py-30 md-py-40">
+      <div class="sm-12">
+        <p class="sm-f-small sm-m-0 sm-my-5 mono" style="color: #2dd4bf;">CSS Framework</p>
+        <h1 class="sm-f-huge md-f-huge sm-m-0 sm-my-10">WiN-CSS</h1>
+        <p class="sm-f-large md-f-large sm-m-0 sm-my-5 hero-subtitle">Proportionally-scaling responsive layouts</p>
+        <p class="sm-f-medium md-f-medium sm-m-0 sm-my-15 hero-description">Mobile-first design where text and spacing scale together.</p>
+        <div class="code sm-p-10 sm-my-15 sm-f-small" style="display: inline-block;">
+          <span style="color: #9ca3af;">&lt;</span><span style="color: #f472b6;">link</span> <span style="color: #a5b4fc;">rel</span><span style="color: #9ca3af;">=</span><span style="color: #a3e635;">"stylesheet"</span> <span style="color: #a5b4fc;">href</span><span style="color: #9ca3af;">=</span><span style="color: #a3e635;">"dist/win.css"</span><span style="color: #9ca3af;">&gt;</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="row sm-px-10 sm-py-10 sm-f-small" aria-label="Main navigation">
+    <div class="sm-12">
+      <a href="#quick-reference" class="nav-link sm-m-5">Reference</a>
+      <a href="#philosophy" class="nav-link sm-m-5">Philosophy</a>
+      <a href="#breakpoints" class="nav-link sm-m-5">Breakpoints</a>
+      <a href="#typography" class="nav-link sm-m-5">Typography</a>
+      <a href="#grid" class="nav-link sm-m-5">Grid</a>
+      <a href="#spacing" class="nav-link sm-m-5">Spacing</a>
+      <a href="#aspect-ratio" class="nav-link sm-m-5">Aspect Ratio</a>
+      <a href="#example" class="nav-link sm-m-5">Example</a>
+    </div>
+  </nav>
+
+  <!-- Quick Reference -->
+  <main id="main-content">
+  <section id="quick-reference" class="row sm-px-10 sm-py-20">
+    <div class="sm-12">
+      <div class="section sm-p-15 md-p-20">
+        <h2 class="sm-f-xlarge md-f-xlarge sm-m-0 sm-my-10">Quick Reference</h2>
+        <p class="sm-f-medium sm-m-0 sm-my-10 muted">All classes follow the pattern: <span class="code-inline">{breakpoint}-{property}-{value}</span></p>
+
+        <div class="table-wrapper sm-my-15">
+          <table class="sm-f-small md-f-small">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Pattern</th>
+                <th>Values</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Grid columns</td>
+                <td><span class="code-inline">{bp}-{n}</span></td>
+                <td class="mono faint">1-12</td>
+              </tr>
+              <tr>
+                <td>Font size</td>
+                <td><span class="code-inline">{bp}-f-{size}</span></td>
+                <td class="mono faint">tiny, small, medium, large, xlarge, huge</td>
+              </tr>
+              <tr>
+                <td>Padding</td>
+                <td><span class="code-inline">{bp}-p-{n}</span></td>
+                <td class="mono faint">0, 5, 10, 15, 20, 25, 30, 40, 50</td>
+              </tr>
+              <tr>
+                <td>Padding X/Y</td>
+                <td><span class="code-inline">{bp}-px-{n}</span> <span class="code-inline">{bp}-py-{n}</span></td>
+                <td class="mono faint">0, 5, 10, 15, 20, 25, 30, 40, 50</td>
+              </tr>
+              <tr>
+                <td>Margin</td>
+                <td><span class="code-inline">{bp}-m-{n}</span></td>
+                <td class="mono faint">0, 5, 10, 15, 20, 25, 30, 40, 50</td>
+              </tr>
+              <tr>
+                <td>Margin X/Y</td>
+                <td><span class="code-inline">{bp}-mx-{n}</span> <span class="code-inline">{bp}-my-{n}</span></td>
+                <td class="mono faint">0, 5, 10, 15, 20, 25, 30, 40, 50</td>
+              </tr>
+              <tr>
+                <td>Aspect ratio</td>
+                <td><span class="code-inline">{bp}-ar-{ratio}</span></td>
+                <td class="mono faint">1x1, 2x1, 1x2, 3x2, 2x3, 4x3, 3x4, 16x9, 9x16, 21x9</td>
+              </tr>
+              <tr>
+                <td>Containers</td>
+                <td><span class="code-inline">.row</span> <span class="code-inline">.container</span></td>
+                <td class="faint">Flex containers with wrapping</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="sm-f-small sm-m-0 sm-my-10 muted">
+          <strong>Breakpoints:</strong> <span class="mono">sm</span> (360px) <span class="mono">md</span> (760px) <span class="mono">lg</span> (1300px)
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Philosophy Section -->
+  <section id="philosophy" class="row sm-px-10 sm-py-20">
+    <div class="sm-12">
+      <div class="section sm-p-15 md-p-20">
+        <h2 class="sm-f-xlarge md-f-xlarge sm-m-0 sm-my-10">The Responsive Design Philosophy</h2>
+
+        <div class="row">
+          <div class="sm-12 md-6 sm-py-10 md-px-10">
+            <h3 class="sm-f-large sm-m-0 sm-my-10">vw-based Fonts</h3>
+            <p class="sm-f-medium sm-m-0 sm-my-10 muted">Font sizes use viewport width units (vw), so they scale proportionally with the browser window. A heading that takes up 1/3 of the screen width on mobile will still take up 1/3 on tablet.</p>
+          </div>
+
+          <div class="sm-12 md-6 sm-py-10 md-px-10">
+            <h3 class="sm-f-large sm-m-0 sm-my-10">em-based Spacing</h3>
+            <p class="sm-f-medium sm-m-0 sm-my-10 muted">Padding and margin use em units, which are relative to the current font size. When the font scales up, the spacing scales with it automatically.</p>
+          </div>
+        </div>
+
+        <div class="highlight-box sm-p-15 md-p-20 sm-my-15" style="border-radius: 8px;">
+          <h3 class="sm-f-large sm-m-0 sm-my-10"><span class="accent-text">vw + em</span> = Proportional Scaling</h3>
+          <p class="sm-f-medium sm-m-0 sm-my-10 muted">When fonts scale with the viewport (vw), and spacing scales with the font (em), everything scales together:</p>
+          <ul class="sm-f-medium sm-m-0 sm-my-10 sm-px-20 muted" style="list-style: disc;">
+            <li class="sm-my-5">Text line breaks stay consistent across screen sizes</li>
+            <li class="sm-my-5">Designs maintain their visual proportions</li>
+            <li class="sm-my-5">Components look "the same" at any viewport width</li>
+            <li class="sm-my-5">No need to manually adjust spacing at each breakpoint</li>
+          </ul>
+        </div>
+
+        <h3 class="sm-f-large sm-m-0 sm-my-15">See It In Action</h3>
+        <p class="sm-f-medium sm-m-0 sm-my-10 muted">Resize your browser window and watch this card scale proportionally:</p>
+
+        <div class="card-demo sm-my-15">
+          <div class="row">
+            <div class="sm-12 md-4">
+              <div class="card-demo-image sm-ar-16x9 md-ar-1x1" role="img" aria-label="Placeholder image">
+                <span aria-hidden="true">IMAGE</span>
+              </div>
+            </div>
+            <div class="sm-12 md-8 sm-p-15 md-p-20">
+              <h4 class="sm-f-large sm-m-0 sm-my-5">Proportional Card</h4>
+              <p class="sm-f-medium sm-m-0 sm-my-10 muted">This entire card scales proportionally. The heading, body text, and all the padding maintain the same visual ratios at any viewport width.</p>
+              <p class="sm-f-small sm-m-0 faint">Try resizing your browser to see the effect.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Breakpoints Section -->
+  <section id="breakpoints" class="row sm-px-10 sm-py-20">
+    <div class="sm-12">
+      <div class="section sm-p-15 md-p-20">
+        <h2 class="sm-f-xlarge md-f-xlarge sm-m-0 sm-my-10">Breakpoints</h2>
+
+        <p class="sm-f-medium sm-m-0 sm-my-10 muted">WiN-CSS uses a mobile-first approach with three breakpoints:</p>
+
+        <div class="row sm-my-15">
+          <div class="sm-12 md-4 sm-py-5 md-px-5">
+            <div class="breakpoint-box sm-p-15">
+              <div class="sm-f-large sm-m-0 mono">sm</div>
+              <div class="sm-f-small sm-m-0 faint">360px+</div>
+            </div>
+          </div>
+          <div class="sm-12 md-4 sm-py-5 md-px-5">
+            <div class="breakpoint-box sm-p-15">
+              <div class="sm-f-large sm-m-0 mono">md</div>
+              <div class="sm-f-small sm-m-0 faint">760px+</div>
+            </div>
+          </div>
+          <div class="sm-12 md-4 sm-py-5 md-px-5">
+            <div class="breakpoint-box active sm-p-15">
+              <div class="sm-f-large sm-m-0 mono accent-text">lg</div>
+              <div class="sm-f-small sm-m-0 faint">1300px+</div>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="sm-f-large sm-m-0 sm-my-15">The <span class="mono">lg</span> Breakpoint: Lock-in</h3>
+        <p class="sm-f-medium sm-m-0 sm-my-10 muted">At the lg breakpoint (1300px), two important things happen:</p>
+
+        <div class="row sm-my-10">
+          <div class="sm-12 md-6 sm-py-10 md-px-10">
+            <div class="demo-box-muted sm-p-15" style="border-radius: 8px;">
+              <h4 class="sm-f-medium sm-m-0 sm-my-5">Fonts Switch to px</h4>
+              <p class="sm-f-small sm-m-0 sm-my-5 muted">Font sizes stop scaling and lock to fixed pixel values. This prevents text from becoming too large on wide monitors.</p>
+            </div>
+          </div>
+          <div class="sm-12 md-6 sm-py-10 md-px-10">
+            <div class="demo-box-muted sm-p-15" style="border-radius: 8px;">
+              <h4 class="sm-f-medium sm-m-0 sm-my-5">.row Gets max-width</h4>
+              <p class="sm-f-small sm-m-0 sm-my-5 muted">The .row container gets max-width: 1300px and centers itself, preventing content from stretching edge-to-edge.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="sm-f-large sm-m-0 sm-my-15">.container vs .row</h3>
+        <div class="table-wrapper sm-my-10">
+          <table class="sm-f-small md-f-small">
+            <thead>
+              <tr>
+                <th>Class</th>
+                <th>Behavior</th>
+                <th>Use Case</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="code-inline">.container</span></td>
+                <td class="muted">Flex container, no max-width, no auto-centering</td>
+                <td class="faint">Full-width sections, nested grids</td>
+              </tr>
+              <tr>
+                <td><span class="code-inline">.row</span></td>
+                <td class="muted">Flex container, max-width 1300px at lg, auto-centered</td>
+                <td class="faint">Main content wrapper, page sections</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Typography Section -->
+  <section id="typography" class="row sm-px-10 sm-py-20">
+    <div class="sm-12">
+      <div class="section sm-p-15 md-p-20">
+        <h2 class="sm-f-xlarge md-f-xlarge sm-m-0 sm-my-10">Typography</h2>
+
+        <p class="sm-f-medium sm-m-0 sm-my-10 muted">Six font sizes that scale proportionally with the viewport:</p>
+
+        <div class="sm-my-15">
+          <div class="sm-py-10" style="border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: baseline;">
+            <span class="sm-f-tiny">sm-f-tiny</span>
+            <span class="sm-f-small mono faint">12px</span>
+          </div>
+          <div class="sm-py-10" style="border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: baseline;">
+            <span class="sm-f-small">sm-f-small</span>
+            <span class="sm-f-small mono faint">14px</span>
+          </div>
+          <div class="sm-py-10" style="border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: baseline;">
+            <span class="sm-f-medium">sm-f-medium</span>
+            <span class="sm-f-small mono faint">16px</span>
+          </div>
+          <div class="sm-py-10" style="border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: baseline;">
+            <span class="sm-f-large">sm-f-large</span>
+            <span class="sm-f-small mono faint">20px</span>
+          </div>
+          <div class="sm-py-10" style="border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: baseline;">
+            <span class="sm-f-xlarge">sm-f-xlarge</span>
+            <span class="sm-f-small mono faint">24px</span>
+          </div>
+          <div class="sm-py-10" style="display: flex; justify-content: space-between; align-items: baseline;">
+            <span class="sm-f-huge">sm-f-huge</span>
+            <span class="sm-f-small mono faint">32px</span>
+          </div>
+        </div>
+
+        <h3 class="sm-f-large sm-m-0 sm-my-15">Responsive Typography</h3>
+        <p class="sm-f-medium sm-m-0 sm-my-10 muted">Change font sizes at different breakpoints:</p>
+
+        <div class="code sm-p-15 sm-my-10 sm-f-small">
+          &lt;<span style="color: #f472b6;">h1</span> <span style="color: #a5b4fc;">class</span>=<span style="color: #a3e635;">"sm-f-large md-f-xlarge lg-f-huge"</span>&gt;Responsive Heading&lt;/<span style="color: #f472b6;">h1</span>&gt;
+        </div>
+
+        <div class="demo-box sm-p-15 sm-my-10">
+          <span class="sm-f-large md-f-xlarge">This text is large on mobile, xlarge on tablet+</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Grid Section -->
+  <section id="grid" class="row sm-px-10 sm-py-20">
+    <div class="sm-12">
+      <div class="section sm-p-15 md-p-20">
+        <h2 class="sm-f-xlarge md-f-xlarge sm-m-0 sm-my-10">Grid System</h2>
+
+        <p class="sm-f-medium sm-m-0 sm-my-10 muted">A 12-column grid that adapts to breakpoints:</p>
+
+        <h3 class="sm-f-large sm-m-0 sm-my-15">Basic Responsive Grid</h3>
+        <div class="code sm-p-15 sm-my-10 sm-f-small">
+&lt;<span style="color: #f472b6;">div</span> <span style="color: #a5b4fc;">class</span>=<span style="color: #a3e635;">"row"</span>&gt;
+  &lt;<span style="color: #f472b6;">div</span> <span style="color: #a5b4fc;">class</span>=<span style="color: #a3e635;">"sm-12 md-6 lg-4"</span>&gt;Column&lt;/<span style="color: #f472b6;">div</span>&gt;
+  &lt;<span style="color: #f472b6;">div</span> <span style="color: #a5b4fc;">class</span>=<span style="color: #a3e635;">"sm-12 md-6 lg-4"</span>&gt;Column&lt;/<span style="color: #f472b6;">div</span>&gt;
+  &lt;<span style="color: #f472b6;">div</span> <span style="color: #a5b4fc;">class</span>=<span style="color: #a3e635;">"sm-12 md-12 lg-4"</span>&gt;Column&lt;/<span style="color: #f472b6;">div</span>&gt;
+&lt;/<span style="color: #f472b6;">div</span>&gt;
+        </div>
+
+        <div class="container sm-my-10">
+          <div class="sm-12 md-6 lg-4 sm-p-5">
+            <div class="demo-box sm-p-10 sm-f-small">sm-12 md-6 lg-4</div>
+          </div>
+          <div class="sm-12 md-6 lg-4 sm-p-5">
+            <div class="demo-box demo-box-alt sm-p-10 sm-f-small">sm-12 md-6 lg-4</div>
+          </div>
+          <div class="sm-12 md-12 lg-4 sm-p-5">
+            <div class="demo-box sm-p-10 sm-f-small">sm-12 md-12 lg-4</div>
+          </div>
+        </div>
+
+        <h3 class="sm-f-large sm-m-0 sm-my-15">Column Combinations</h3>
+
+        <div class="container sm-my-10">
+          <div class="sm-6 sm-p-5">
+            <div class="demo-box sm-p-10 sm-f-small">sm-6</div>
+          </div>
+          <div class="sm-6 sm-p-5">
+            <div class="demo-box demo-box-alt sm-p-10 sm-f-small">sm-6</div>
+          </div>
+        </div>
+
+        <div class="container sm-my-10">
+          <div class="sm-4 sm-p-5">
+            <div class="demo-box sm-p-10 sm-f-small">sm-4</div>
+          </div>
+          <div class="sm-4 sm-p-5">
+            <div class="demo-box demo-box-alt sm-p-10 sm-f-small">sm-4</div>
+          </div>
+          <div class="sm-4 sm-p-5">
+            <div class="demo-box sm-p-10 sm-f-small">sm-4</div>
+          </div>
+        </div>
+
+        <div class="container sm-my-10">
+          <div class="sm-3 sm-p-5">
+            <div class="demo-box sm-p-10 sm-f-tiny">sm-3</div>
+          </div>
+          <div class="sm-3 sm-p-5">
+            <div class="demo-box demo-box-alt sm-p-10 sm-f-tiny">sm-3</div>
+          </div>
+          <div class="sm-3 sm-p-5">
+            <div class="demo-box sm-p-10 sm-f-tiny">sm-3</div>
+          </div>
+          <div class="sm-3 sm-p-5">
+            <div class="demo-box demo-box-alt sm-p-10 sm-f-tiny">sm-3</div>
+          </div>
+        </div>
+
+        <div class="container sm-my-10">
+          <div class="sm-8 sm-p-5">
+            <div class="demo-box sm-p-10 sm-f-small">sm-8</div>
+          </div>
+          <div class="sm-4 sm-p-5">
+            <div class="demo-box demo-box-alt sm-p-10 sm-f-small">sm-4</div>
+          </div>
+        </div>
+
+        <h3 class="sm-f-large sm-m-0 sm-my-15">Adding Gaps with Spacing</h3>
+        <p class="sm-f-medium sm-m-0 sm-my-10 muted">Use padding classes on columns to create gaps:</p>
+
+        <div class="code sm-p-15 sm-my-10 sm-f-small">
+&lt;<span style="color: #f472b6;">div</span> <span style="color: #a5b4fc;">class</span>=<span style="color: #a3e635;">"row"</span>&gt;
+  &lt;<span style="color: #f472b6;">div</span> <span style="color: #a5b4fc;">class</span>=<span style="color: #a3e635;">"sm-6 sm-p-5"</span>&gt;&lt;<span style="color: #f472b6;">div</span> <span style="color: #a5b4fc;">class</span>=<span style="color: #a3e635;">"box"</span>&gt;...&lt;/<span style="color: #f472b6;">div</span>&gt;&lt;/<span style="color: #f472b6;">div</span>&gt;
+  &lt;<span style="color: #f472b6;">div</span> <span style="color: #a5b4fc;">class</span>=<span style="color: #a3e635;">"sm-6 sm-p-5"</span>&gt;&lt;<span style="color: #f472b6;">div</span> <span style="color: #a5b4fc;">class</span>=<span style="color: #a3e635;">"box"</span>&gt;...&lt;/<span style="color: #f472b6;">div</span>&gt;&lt;/<span style="color: #f472b6;">div</span>&gt;
+&lt;/<span style="color: #f472b6;">div</span>&gt;
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Spacing Section -->
+  <section id="spacing" class="row sm-px-10 sm-py-20">
+    <div class="sm-12">
+      <div class="section sm-p-15 md-p-20">
+        <h2 class="sm-f-xlarge md-f-xlarge sm-m-0 sm-my-10">Spacing</h2>
+
+        <p class="sm-f-medium sm-m-0 sm-my-10 muted">Spacing uses em units, so it scales with font size. The number represents tenths of an em:</p>
+
+        <div class="table-wrapper sm-my-15">
+          <table class="sm-f-small md-f-small">
+            <thead>
+              <tr>
+                <th>Suffix</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="mono">-0</td><td class="mono faint">0em</td></tr>
+              <tr><td class="mono">-5</td><td class="mono faint">0.5em</td></tr>
+              <tr><td class="mono">-10</td><td class="mono faint">1em</td></tr>
+              <tr><td class="mono">-15</td><td class="mono faint">1.5em</td></tr>
+              <tr><td class="mono">-20</td><td class="mono faint">2em</td></tr>
+              <tr><td class="mono">-25</td><td class="mono faint">2.5em</td></tr>
+              <tr><td class="mono">-30</td><td class="mono faint">3em</td></tr>
+              <tr><td class="mono">-40</td><td class="mono faint">4em</td></tr>
+              <tr><td class="mono">-50</td><td class="mono faint">5em</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="sm-f-large sm-m-0 sm-my-15">Padding Scale</h3>
+        <p class="sm-f-medium sm-m-0 sm-my-10 muted">Visual comparison of padding values:</p>
+
+        <div class="sm-my-15 sm-f-small">
+          <div class="sm-my-10">
+            <div class="spacing-demo sm-p-5" style="border-radius: 6px;">
+              <div class="spacing-inner sm-p-5 mono">sm-p-5</div>
+            </div>
+          </div>
+          <div class="sm-my-10">
+            <div class="spacing-demo sm-p-10" style="border-radius: 6px;">
+              <div class="spacing-inner sm-p-5 mono">sm-p-10</div>
+            </div>
+          </div>
+          <div class="sm-my-10">
+            <div class="spacing-demo sm-p-15" style="border-radius: 6px;">
+              <div class="spacing-inner sm-p-5 mono">sm-p-15</div>
+            </div>
+          </div>
+          <div class="sm-my-10">
+            <div class="spacing-demo sm-p-20" style="border-radius: 6px;">
+              <div class="spacing-inner sm-p-5 mono">sm-p-20</div>
+            </div>
+          </div>
+          <div class="sm-my-10">
+            <div class="spacing-demo sm-p-30" style="border-radius: 6px;">
+              <div class="spacing-inner sm-p-5 mono">sm-p-30</div>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="sm-f-large sm-m-0 sm-my-15">Directional Spacing</h3>
+        <p class="sm-f-medium sm-m-0 sm-my-10 muted">Control horizontal (x) and vertical (y) spacing independently:</p>
+
+        <div class="row sm-my-15">
+          <div class="sm-12 md-6 sm-py-5 md-px-5">
+            <div class="code sm-p-10 sm-f-small sm-my-5">sm-px-20 <span class="code-faint">(horizontal)</span></div>
+            <div class="spacing-demo sm-px-20 sm-py-5" style="border-radius: 6px;">
+              <div class="spacing-inner sm-p-5 sm-f-small mono">Content</div>
+            </div>
+          </div>
+          <div class="sm-12 md-6 sm-py-5 md-px-5">
+            <div class="code sm-p-10 sm-f-small sm-my-5">sm-py-20 <span class="code-faint">(vertical)</span></div>
+            <div class="spacing-demo sm-py-20 sm-px-5" style="border-radius: 6px;">
+              <div class="spacing-inner sm-p-5 sm-f-small mono">Content</div>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="sm-f-large sm-m-0 sm-my-15">Responsive Spacing</h3>
+        <p class="sm-f-medium sm-m-0 sm-my-10 muted">Change spacing at different breakpoints:</p>
+
+        <div class="code sm-p-15 sm-my-10 sm-f-small">
+&lt;<span style="color: #f472b6;">div</span> <span style="color: #a5b4fc;">class</span>=<span style="color: #a3e635;">"sm-p-10 md-p-20 lg-p-30"</span>&gt;
+  Padding grows at each breakpoint
+&lt;/<span style="color: #f472b6;">div</span>&gt;
+        </div>
+
+        <div class="spacing-demo sm-p-10 md-p-20 sm-my-10" style="border-radius: 6px;">
+          <div class="spacing-inner sm-p-5 sm-f-small mono">sm-p-10 md-p-20</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Aspect Ratio Section -->
+  <section id="aspect-ratio" class="row sm-px-10 sm-py-20">
+    <div class="sm-12">
+      <div class="section sm-p-15 md-p-20">
+        <h2 class="sm-f-xlarge md-f-xlarge sm-m-0 sm-my-10">Aspect Ratios</h2>
+
+        <p class="sm-f-medium sm-m-0 sm-my-10 muted">Lock elements to specific aspect ratios:</p>
+
+        <div class="row sm-my-15">
+          <div class="sm-6 md-3 sm-p-5">
+            <div class="demo-box sm-ar-1x1 sm-f-small">1:1</div>
+          </div>
+          <div class="sm-6 md-3 sm-p-5">
+            <div class="demo-box demo-box-alt sm-ar-4x3 sm-f-small">4:3</div>
+          </div>
+          <div class="sm-6 md-3 sm-p-5">
+            <div class="demo-box sm-ar-16x9 sm-f-small">16:9</div>
+          </div>
+          <div class="sm-6 md-3 sm-p-5">
+            <div class="demo-box demo-box-alt sm-ar-21x9 sm-f-small">21:9</div>
+          </div>
+        </div>
+
+        <h3 class="sm-f-large sm-m-0 sm-my-15">All Available Ratios</h3>
+        <div class="row sm-my-10">
+          <div class="sm-12 md-6">
+            <ul class="sm-f-small sm-px-20 muted" style="list-style: disc;">
+              <li class="sm-my-5"><span class="code-inline">ar-1x1</span> Square</li>
+              <li class="sm-my-5"><span class="code-inline">ar-2x1</span> Wide</li>
+              <li class="sm-my-5"><span class="code-inline">ar-1x2</span> Tall</li>
+              <li class="sm-my-5"><span class="code-inline">ar-3x2</span> Photo</li>
+              <li class="sm-my-5"><span class="code-inline">ar-2x3</span> Portrait</li>
+            </ul>
+          </div>
+          <div class="sm-12 md-6">
+            <ul class="sm-f-small sm-px-20 muted" style="list-style: disc;">
+              <li class="sm-my-5"><span class="code-inline">ar-4x3</span> Classic</li>
+              <li class="sm-my-5"><span class="code-inline">ar-3x4</span> Portrait</li>
+              <li class="sm-my-5"><span class="code-inline">ar-16x9</span> Widescreen</li>
+              <li class="sm-my-5"><span class="code-inline">ar-9x16</span> Vertical video</li>
+              <li class="sm-my-5"><span class="code-inline">ar-21x9</span> Ultrawide</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 class="sm-f-large sm-m-0 sm-my-15">Responsive Aspect Ratio</h3>
+        <p class="sm-f-medium sm-m-0 sm-my-10 muted">Change aspect ratio at different breakpoints:</p>
+
+        <div class="code sm-p-15 sm-my-10 sm-f-small">
+&lt;<span style="color: #f472b6;">div</span> <span style="color: #a5b4fc;">class</span>=<span style="color: #a3e635;">"sm-ar-1x1 md-ar-16x9"</span>&gt;
+  Square on mobile, widescreen on tablet+
+&lt;/<span style="color: #f472b6;">div</span>&gt;
+        </div>
+
+        <div class="sm-6 sm-my-10">
+          <div class="demo-box sm-ar-1x1 md-ar-16x9 sm-f-small">sm-ar-1x1 md-ar-16x9</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Real World Example Section -->
+  <section id="example" class="row sm-px-10 sm-py-20">
+    <div class="sm-12">
+      <div class="section sm-p-15 md-p-20">
+        <h2 class="sm-f-xlarge md-f-xlarge sm-m-0 sm-my-10">Real-World Example</h2>
+
+        <p class="sm-f-medium sm-m-0 sm-my-10 muted">A complete article card demonstrating grid, typography, spacing, and aspect ratios:</p>
+
+        <div class="code sm-p-15 sm-my-10 sm-f-tiny" style="white-space: pre-wrap;">
+&lt;<span style="color: #f472b6;">div</span> <span style="color: #a5b4fc;">class</span>=<span style="color: #a3e635;">"row"</span>&gt;
+  &lt;<span style="color: #f472b6;">article</span> <span style="color: #a5b4fc;">class</span>=<span style="color: #a3e635;">"sm-12 md-6 lg-4 sm-p-10"</span>&gt;
+    &lt;<span style="color: #f472b6;">div</span> <span style="color: #a5b4fc;">class</span>=<span style="color: #a3e635;">"card"</span>&gt;
+      &lt;<span style="color: #f472b6;">div</span> <span style="color: #a5b4fc;">class</span>=<span style="color: #a3e635;">"sm-ar-16x9"</span>&gt;
+        &lt;<span style="color: #f472b6;">img</span> <span style="color: #a5b4fc;">src</span>=<span style="color: #a3e635;">"..."</span> <span style="color: #a5b4fc;">alt</span>=<span style="color: #a3e635;">"..."</span>&gt;
+      &lt;/<span style="color: #f472b6;">div</span>&gt;
+      &lt;<span style="color: #f472b6;">div</span> <span style="color: #a5b4fc;">class</span>=<span style="color: #a3e635;">"sm-p-15"</span>&gt;
+        &lt;<span style="color: #f472b6;">h3</span> <span style="color: #a5b4fc;">class</span>=<span style="color: #a3e635;">"sm-f-large sm-m-0 sm-my-5"</span>&gt;Title&lt;/<span style="color: #f472b6;">h3</span>&gt;
+        &lt;<span style="color: #f472b6;">p</span> <span style="color: #a5b4fc;">class</span>=<span style="color: #a3e635;">"sm-f-medium sm-m-0 sm-my-10"</span>&gt;...&lt;/<span style="color: #f472b6;">p</span>&gt;
+      &lt;/<span style="color: #f472b6;">div</span>&gt;
+    &lt;/<span style="color: #f472b6;">div</span>&gt;
+  &lt;/<span style="color: #f472b6;">article</span>&gt;
+&lt;/<span style="color: #f472b6;">div</span>&gt;
+        </div>
+
+        <h3 class="sm-f-large sm-m-0 sm-my-15">Live Demo</h3>
+        <p class="sm-f-medium sm-m-0 sm-my-10 muted">Resize the browser to see how these cards scale proportionally:</p>
+
+        <div class="container sm-my-15">
+          <article class="sm-12 md-6 lg-4 sm-p-5">
+            <div class="card-demo">
+              <div class="card-demo-image sm-ar-16x9" role="img" aria-label="Placeholder image for Getting Started article">
+                <span aria-hidden="true">IMAGE</span>
+              </div>
+              <div class="sm-p-15">
+                <h3 class="sm-f-large sm-m-0 sm-my-5">Getting Started with WiN-CSS</h3>
+                <p class="sm-f-medium sm-m-0 sm-my-10 muted">Learn how to build proportionally-scaling responsive layouts with minimal effort.</p>
+                <span class="sm-f-small accent-text">Read more</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="sm-12 md-6 lg-4 sm-p-5">
+            <div class="card-demo">
+              <div class="card-demo-image sm-ar-16x9" role="img" aria-label="Placeholder image for vw + em article">
+                <span aria-hidden="true">IMAGE</span>
+              </div>
+              <div class="sm-p-15">
+                <h3 class="sm-f-large sm-m-0 sm-my-5">The Power of vw + em</h3>
+                <p class="sm-f-medium sm-m-0 sm-my-10 muted">Understanding how viewport and em units work together for proportional scaling.</p>
+                <span class="sm-f-small accent-text">Read more</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="sm-12 md-12 lg-4 sm-p-5">
+            <div class="card-demo">
+              <div class="card-demo-image sm-ar-16x9" role="img" aria-label="Placeholder image for Responsive article">
+                <span aria-hidden="true">IMAGE</span>
+              </div>
+              <div class="sm-p-15">
+                <h3 class="sm-f-large sm-m-0 sm-my-5">Responsive Without Complexity</h3>
+                <p class="sm-f-medium sm-m-0 sm-my-10 muted">Build mobile-first layouts that maintain visual harmony across all devices.</p>
+                <span class="sm-f-small accent-text">Read more</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="row sm-px-10 sm-py-30">
+    <div class="sm-12" style="text-align: center;">
+      <p class="sm-f-medium sm-m-0 sm-my-5 muted">WiN-CSS</p>
+      <p class="sm-f-small sm-m-0 sm-my-5 faint">Proportionally-scaling responsive CSS framework</p>
+    </div>
+  </footer>
+
+</body>
+</html>

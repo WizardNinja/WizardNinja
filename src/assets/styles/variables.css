@@ -1,0 +1,170 @@
+:root {
+  /* Light theme (Monokai Light Variant) */
+  --color-bg: #fafafa;
+  --color-bg-alt: #f0f0f0;
+  --color-surface: #ffffff;
+  --color-text: #272822;
+  --color-text-muted: #6e7066;
+  --color-accent: #7a9f22;
+  --color-accent-hover: #5d7a1a;
+  --color-secondary: #2aa1b3;
+  --color-highlight: #c4215a;
+  --color-warning: #c57716;
+  --color-border: #d0d0d0;
+  --color-card-bg: #ffffff;
+  --color-card-shadow: rgba(0, 0, 0, 0.08);
+
+  /* Typography */
+  --font-body: 'Space Grotesk', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Spacing */
+  --header-height: 70px;
+  --section-padding: 5rem;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 300ms ease;
+
+  /* Glow effects */
+  --glow-accent: 0 0 20px rgba(122, 159, 34, 0.3);
+  --glow-secondary: 0 0 20px rgba(42, 161, 179, 0.3);
+  --glow-highlight: 0 0 20px rgba(196, 33, 90, 0.3);
+}
+
+[data-theme="dark"] {
+  /* Dark theme (Monokai) */
+  --color-bg: #272822;
+  --color-bg-alt: #1e1f1c;
+  --color-surface: #3e3d32;
+  --color-text: #f8f8f2;
+  --color-text-muted: #75715e;
+  --color-accent: #a6e22e;
+  --color-accent-hover: #b8f336;
+  --color-secondary: #66d9ef;
+  --color-highlight: #f92672;
+  --color-warning: #fd971f;
+  --color-border: #49483e;
+  --color-card-bg: #3e3d32;
+  --color-card-shadow: rgba(0, 0, 0, 0.4);
+
+  /* Glow effects - brighter for dark theme */
+  --glow-accent: 0 0 25px rgba(166, 226, 46, 0.4);
+  --glow-secondary: 0 0 25px rgba(102, 217, 239, 0.4);
+  --glow-highlight: 0 0 25px rgba(249, 38, 114, 0.4);
+}
+
+/* Base styles using CSS variables */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height);
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+  line-height: 1.6;
+}
+
+/* Monospace font utility */
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Links */
+a {
+  color: var(--color-secondary);
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-accent);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-primary {
+  background-color: var(--color-accent);
+  color: #272822;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-accent-hover);
+  box-shadow: var(--glow-accent);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 2px solid var(--color-secondary);
+  color: var(--color-secondary);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-secondary);
+  color: #272822;
+  box-shadow: var(--glow-secondary);
+  transform: translateY(-2px);
+}
+
+/* Section styling - framework handles padding via sm-py-30 md-py-40 */
+.section-alt {
+  background-color: var(--color-bg-alt);
+}
+
+/* Section title styling - framework handles sizing via sm-f-xlarge md-f-huge */
+.section-title {
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* Section subtitle styling - framework handles sizing via sm-f-medium md-f-large */
+.section-subtitle {
+  color: var(--color-text-muted);
+}
+
+/* Card styling */
+.card {
+  background-color: var(--color-card-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 4px 6px var(--color-card-shadow);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px var(--color-card-shadow);
+  border-color: var(--color-accent);
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Code/monospace text accent color */
+code, .code-text {
+  font-family: var(--font-mono);
+  color: var(--color-highlight);
+}
