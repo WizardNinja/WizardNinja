@@ -119,7 +119,7 @@ const navItems = [
   background-color: var(--color-accent);
   margin-left: 2px;
   vertical-align: text-bottom;
-  animation: blink-cursor 1s step-end infinite;
+  animation: blink-cursor 1s step-end 5;
 }
 
 .header-nav {

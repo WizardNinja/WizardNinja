@@ -3,7 +3,7 @@ import { ref, watch, onMounted } from 'vue'
 const STORAGE_KEY = 'theme-preference'
 
 export function useTheme() {
-  const isDark = ref(false)
+  const isDark = ref(true)
 
   const getSystemPreference = () => {
     return window.matchMedia('(prefers-color-scheme: dark)').matches
